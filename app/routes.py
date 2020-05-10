@@ -14,7 +14,14 @@ from .requests import get_quotes
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template('index.html')      
+    return render_template('index.html')   
+
+@app.route("/view")
+@login_required
+def view():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date.desc()).paginate(page=page, per_page=5)
+    return render_template('view.html', posts=posts)          
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

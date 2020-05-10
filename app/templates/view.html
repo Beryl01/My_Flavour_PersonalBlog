@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  {% for post in posts.items %}
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <div class="post-preview">
+        <img class="rounded-circle article-img"
+          src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+        <h2 class="post-title">
+          <a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a>
+        </h2>
+        <h4 class="post-subtitle">{{ post.content }}</h4>
+
+        <p><a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">Posted by
+            {{ post.author.username }}</a>On {{ post.date.strftime('%Y-%m-%d') }}</p>
+      </div>
+      <div>
+        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('comment') }}">Add A comment</a>
+        <hr>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+  {% if page_num %}
+  {% if posts.page == page_num %}
+  <a class="btn btn-info mb-4" href="{{ url_for('view', page=page_num) }}">{{ page_num }}</a>
+  {% else %}
+  <a class="btn btn-outline-info mb-4" href="{{ url_for('view', page=page_num) }}">{{ page_num }}</a>
+  {% endif %}
+  {% else %}
+  ...
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock content %}
