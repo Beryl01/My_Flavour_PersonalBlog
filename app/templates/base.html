@@ -27,7 +27,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
           {% if current_user.is_authenticated %}
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('product') }}">View Our Blogs</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('view') }}">View Our Blogs</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('new_post') }}">Start Your Blog</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('account') }}">Account</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('logout') }}">Logout</a></li>

@@ -16,13 +16,13 @@ from .requests import get_quotes
 def index():
     return render_template('index.html')
 
-@app.route("/product")
+@app.route("/view")
 @login_required
-def product():
+def view():
    
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date.desc()).paginate(page=page, per_page=5)
-    return render_template('product.html', posts=posts)          
+    return render_template('view.html', posts=posts)          
 
 @app.route("/comment", methods=['GET', 'POST'])
 def comment():
@@ -31,7 +31,7 @@ def comment():
         comment = Comment(title=form.title.data, content=form.content.data, author=current_user)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('product'))
+        return redirect(url_for('view'))
     return render_template('comment.html', form=form, legend='Add Comment')
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -111,7 +111,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created!', 'success')
-        return redirect(url_for('product'))
+        return redirect(url_for('view'))
     return render_template('create_pitch.html', title='New Post', form=form, legend='New Post')
 
 @app.route("/post/<int:post_id>")
