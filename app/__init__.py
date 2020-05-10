@@ -22,7 +22,7 @@ MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 migrate = Migrate(app,db)
 mail = Mail(app)
 
-QUOTE_URL='http://quotes.stormconsultancy.co.uk/random.json'
+QUOTES_API_URL='http://quotes.stormconsultancy.co.uk/random.json'
 
 
 from app import routes

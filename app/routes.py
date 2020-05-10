@@ -9,19 +9,18 @@ from app.models import User, Post, Comment
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Mail, Message
 from flask_migrate import Migrate, MigrateCommand
-from .requests import get_quotes
 
 @app.route("/")
 @app.route("/index")
 def index():
     return render_template('index.html')
 
-@app.route("/subscribe")
+@app.route("/subscribe", methods=['GET', 'POST'])
+@login_required
 def subscribe():
     form = SubscribeForm()
     if form.validate_on_submit():
-        db.session.add()
-        db.session.commit()
+    
         return redirect(url_for('view'))
     return render_template('subscribe.html', form=form, legend='Subscribe')    
 

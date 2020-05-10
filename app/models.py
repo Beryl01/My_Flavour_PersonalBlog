@@ -51,12 +51,11 @@ class Comment(db.Model):
     def __repr__(self):
         return f"Comment('{self.title}', '{self.date}')"   
 
-class Quote:
-    '''
-    Quote class to define Quote Objects
-    '''
+class Subscribe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self,author,quote,permalink):
-        self.id =id
-        self.author = author
-        self.quote = quote             
+    def __repr__(self):
+        return f"Comment('{self.title}', '{self.date}')"           
+
+        
