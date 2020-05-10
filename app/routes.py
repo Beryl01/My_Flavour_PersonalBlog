@@ -4,8 +4,8 @@ from .email import mail_message
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from app import app, db, bcrypt, mail
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, CommentForm
-from app.models import User, Post
+from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm, CommentForm, SubscribeForm
+from app.models import User, Post, Comment
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Mail, Message
 from flask_migrate import Migrate, MigrateCommand
@@ -15,6 +15,15 @@ from .requests import get_quotes
 @app.route("/index")
 def index():
     return render_template('index.html')
+
+@app.route("/subscribe")
+def subscribe():
+    form = SubscribeForm()
+    if form.validate_on_submit():
+        db.session.add()
+        db.session.commit()
+        return redirect(url_for('view'))
+    return render_template('subscribe.html', form=form, legend='Subscribe')    
 
 @app.route("/view")
 @login_required

@@ -28,6 +28,7 @@
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
           {% if current_user.is_authenticated %}
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('view') }}">View Our Blogs</a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('new_post') }}">Start Your Blog</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('account') }}">Account</a></li>
           <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_for('logout') }}">Logout</a></li>
           {% else %}
@@ -263,8 +264,14 @@
       font-size: 2.5rem;
     }
 
+    #bottom{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
-  <header class="masthead1" style="background-image:linear-gradient(to bottom, rgba(94, 91, 91, 0.8) 0%, rgba(97, 94, 94, 0.8) 100%), url('../static/images/home-bg.jpg')">
+  <header class="masthead1"
+    style="background-image:linear-gradient(to bottom, rgba(94, 91, 91, 0.8) 0%, rgba(97, 94, 94, 0.8) 100%), url('../static/images/home-bg.jpg')">
     <div class="container">
       <div class="">
         <div class="">
@@ -277,45 +284,24 @@
       </div>
     </div>
   </header>
-<div>
-  {% block content %}{% endblock %}
-</div>
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted text-center">Copyright &copy; Your Website 2019</p>
-        </div>
-      </div>
+  <div>
+    <div>
+      {% block content %}{% endblock %}
     </div>
-  </footer>
+    <!-- Footer -->
+    <br>
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div id="bottom" class="col-lg-8 col-md-10 mx-auto bottom">
+            <span class="color_15 mr-1">Subscribe&nbsp;for Updates &amp; Offers</span>
+            <button><a style="cursor:pointer" class="transparent"href="{{ url_for('subscribe') }}">Subscribe Now</a></button>
+          </div>
+        </div>
+        <div><br><h1 class="copyright text-center">Copyright &copy; My_Flavour_PersonalBlog 2019</h1></div>
+      </div>
+    </footer>
+  </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -24,4 +24,5 @@ mail = Mail(app)
 
 QUOTE_URL='http://quotes.stormconsultancy.co.uk/random.json'
 
+
 from app import routes
