@@ -37,9 +37,7 @@ def view():
 def comment():
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(content=form.content.data)
-        db.session.add(comment)
-        db.session.commit()
+       
         return redirect(url_for('view'))
     return render_template('comment.html', form=form, legend='Add Comment')
 
