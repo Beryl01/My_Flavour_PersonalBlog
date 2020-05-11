@@ -42,11 +42,18 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date}')"
 
 class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer,primary_key = True)
     content = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f'Comment:{self.comment}'        
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()      
 
 class Subscribe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
