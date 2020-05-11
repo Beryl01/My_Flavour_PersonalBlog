@@ -9,6 +9,7 @@ from app.models import User, Post, Comment
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Mail, Message
 from flask_migrate import Migrate, MigrateCommand
+from .requests import get_quote
 
 @app.route("/")
 @app.route("/index")
@@ -27,9 +28,10 @@ def subscribe():
 @app.route("/view")
 @login_required
 def view():
+    quote = get_quote()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date.desc()).paginate(page=page, per_page=5)
-    return render_template('view.html', posts=posts)          
+    return render_template('view.html', posts=posts, quote=quote)          
 
 @app.route("/comment", methods=['GET', 'POST'])
 def comment():
