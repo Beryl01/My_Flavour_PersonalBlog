@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<br>
 <div class="container content-section">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -61,11 +62,12 @@
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
+        <div class="border-top pt-3">
+            <p class="">
+                Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+            </p>
+        </div>
     </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
-        </small>
-    </div>
 </div>
+<br>
 {% endblock content %}

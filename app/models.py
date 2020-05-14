@@ -13,8 +13,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    _property = db.relationship('Property',backref='user', lazy=True)
 
+    
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
@@ -28,38 +29,31 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
-    def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.date}')"
-
-class Comment(db.Model):
-    id = db.Column(db.Integer,primary_key = True)
-    content = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def save_comment(self):
+    def save(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_comment(self):
+    def delete(self):
         db.session.delete(self)
-        db.session.commit()      
+        db.session.commit()
 
-class Subscribe(db.Model):
+class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    rent = db.Column(db.Integer,nullable=False)
+    location = db.Column(db.String, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='property_1.jpg')
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def __repr__(self):
-        return f"Comment('{self.title}', '{self.date}')"           
+        return f"Post('{self.location}', '{self.content}''{self.contact}', '{self.rent}', '{self.image_file}')"    
 
         
